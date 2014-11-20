@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1390777974 source:p:\cptr 142\homework4\homework 4\listsl.cpp
+	"ListSL.h"
+
+1390778041 p:\cptr 142\homework4\homework 4\listsl.h
+	<iostream>
+	<cstdlib>
+
+1391110619 source:\\cpfs.skynet.local\studentshome\travis.crumley\my documents\cptr 142\homework4\homework 4\listsl.cpp
+	"ListSL.h"
+
+1391110691 \\cpfs.skynet.local\studentshome\travis.crumley\my documents\cptr 142\homework4\homework 4\listsl.h
+	<iostream>
+	<fstream>
+	<cstdlib>
+	<string>
+

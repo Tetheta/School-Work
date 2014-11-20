@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyListDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="fName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="lName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="ListDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+  </EntityContainer>
+</Schema>

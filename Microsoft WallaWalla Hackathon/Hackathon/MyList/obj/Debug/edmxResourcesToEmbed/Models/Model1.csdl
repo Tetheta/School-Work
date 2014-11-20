@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyListDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="eulaAcceptance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="other1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="other2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Posting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" FixedLength="false" Unicode="false" MaxLength="50" />
+    <Property Name="customerStatus" Type="String" FixedLength="false" Unicode="false" MaxLength="50" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" FixedLength="false" Unicode="false" MaxLength="50" />
+    <Property Name="postedDate" Type="String" FixedLength="false" Unicode="false" MaxLength="50" />
+    <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contactInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customerId" Type="Int32" Nullable="false" />
+    <Property Name="images" Type="Int32" />
+    <Property Name="other1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="other2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="image1" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="image2" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="image3" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="image4" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="MyListDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Postings" EntityType="Self.Posting" />
+    <FunctionImport Name="IndividualListing" ReturnType="Collection(MyListDBModel.IndividualListing_Result)">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ListingCategorySearch" ReturnType="Collection(MyListDBModel.ListingCategorySearch_Result)">
+      <Parameter Name="param1" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ListingOther1Search" ReturnType="Collection(MyListDBModel.ListingOther1Search_Result)">
+      <Parameter Name="param1" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ListingTitleSearch" ReturnType="Collection(MyListDBModel.ListingTitleSearch_Result)">
+      <Parameter Name="param1" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="MyListings" ReturnType="Collection(MyListDBModel.MyListings_Result)">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LoginValidation" ReturnType="Collection(Int32)">
+      <Parameter Name="param1" Mode="In" Type="String" />
+      <Parameter Name="param2" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="IndividualListing_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customerStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="postedDate" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="details" Nullable="true" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="19" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="contactInfo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="customerId" Nullable="false" />
+    <Property Type="Int32" Name="images" Nullable="true" />
+    <Property Type="String" Name="other1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="other2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ListingCategorySearch_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customerStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="postedDate" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="details" Nullable="true" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="19" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="contactInfo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="images" Nullable="true" />
+    <Property Type="String" Name="other1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="other2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ListingOther1Search_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customerStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="postedDate" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="details" Nullable="true" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="19" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="contactInfo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="images" Nullable="true" />
+    <Property Type="String" Name="other1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="other2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ListingTitleSearch_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customerStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="postedDate" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="details" Nullable="true" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="19" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="contactInfo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="images" Nullable="true" />
+    <Property Type="String" Name="other1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="other2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="MyListings_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customerStatus" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="postedDate" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="images" Nullable="true" />
+    <Property Type="String" Name="other1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="other2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

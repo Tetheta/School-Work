@@ -1,0 +1,7 @@
+This project won first place at hackathon put on by Microsoft at Walla Walla University in the Spring quarter of 2014. 
+
+The goal of the project was to create a site similar to Craigslist, using a server and information that Microsoft supplied. The first part of the day was spent in tutorials (since many students including me had never really used javascript, HTML, or CSS before) and the latter part of the day was spent actually creating our websites.
+
+I (Travis Crumley) wrote all of the code and collaborated on design and art materials with a fellow student, Chris Kolson. 
+
+Since this was a Hackathon and I was the only one working on the code I'm afraid I didn't really comment anything, most of it seemed self-explanatory at the time and I wasn't expecting to show this to anyone.

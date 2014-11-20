@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/StyleSheet.css">
+</head>
+<body class="automotive" onload="findAutomotiveListings();">
+    <div class="nav">
+        <div class="container">
+            <ul class="pull-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="searchListings.html">Search</a></li>
+            </ul>
+            <ul class="pull-right">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="post.html">Post</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="category">
+        <h2>   Automotive Listings</h2>
+
+        <div id="listingResults">
+        </div>
+    </div>
+    <script>
+        function findAutomotiveListings() {
+            var category = "automotive";
+            var uri = '/api/GetCategoryListings/' + category;
+            req = new XMLHttpRequest();
+            req.onreadystatechange = getListings;
+            req.open("GET", uri, true);
+            req.send();
+        }
+        function getListings() {
+            if (req.readyState == 4 && req.status == 200) {
+                var textOutput = req.responseText;
+                var jsonObj = JSON.parse(textOutput);
+                createTableListings(jsonObj);
+            }
+        }
+
+        function createTableListings(resultObj) {
+            // Access table
+            var tableObj = document.getElementById("tableResults");
+            if (tableObj == null) {
+                tableObj = document.createElement('table');
+                tableObj.id = "tableResults";
+                tableObj.cellPadding = "10px";
+                //tableObj.style.cellpadding = "10px";
+            }
+            else {
+                tableObj.innerHTML = "";
+            }
+            //Insert labeling row
+            var trObj = document.createElement('tr');
+            var thObj0 = document.createElement('td');
+            thObj0.innerHTML = "Listing #";
+            var thObj1 = document.createElement('td');
+            thObj1.innerHTML = "ID";
+            var thObj2 = document.createElement('td');
+            thObj2.innerHTML = "Category";
+            var thObj3 = document.createElement('td');
+            thObj3.innerHTML = "Title";
+            var thObj4 = document.createElement('td');
+            thObj4.innerHTML = "Price";
+
+            trObj.appendChild(thObj0);
+            trObj.appendChild(thObj1);
+            trObj.appendChild(thObj2);
+            trObj.appendChild(thObj3);
+            trObj.appendChild(thObj4);
+            tableObj.appendChild(trObj);
+
+            // Insert New Row for table at index '0'.
+            for (var i = 0; i < resultObj.length; i++) {
+                var trObj = document.createElement('tr');
+
+                var thObj0 = document.createElement('td');
+                thObj0.innerHTML = "Listing " + (i + 1);
+                var thObj1 = document.createElement('td');
+                thObj1.innerHTML = resultObj[i].Id;
+                var thObj2 = document.createElement('td');
+                thObj2.innerHTML = resultObj[i].category;
+                var thObj3 = document.createElement('td');
+                thObj3.innerHTML = resultObj[i].title;
+                var thObj4 = document.createElement('td');
+                thObj4.innerHTML = " $" + resultObj[i].price;
+
+                trObj.appendChild(thObj0);
+                trObj.appendChild(thObj1);
+                trObj.appendChild(thObj2);
+                trObj.appendChild(thObj3);
+                trObj.appendChild(thObj4);
+                tableObj.appendChild(trObj);
+            }
+            var div = document.getElementById('listingResults');
+            div.appendChild(tableObj);
+        }
+
+    </script>
+
+
+
+    <!-- Includes are shown below -->
+    <!--    <script type="text/javascript" src="scripts/JavaScript.js"></script> -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

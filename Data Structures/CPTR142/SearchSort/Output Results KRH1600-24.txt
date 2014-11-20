@@ -1,0 +1,15 @@
+Search:
+	Inline: 3.108
+	Void:   5.843
+	Direct: 3.297
+	
+	Final1: 2.969
+
+Sort:
+	Inline: 3.151
+	Void:   2.304
+	Direct: 1.841
+
+	Final1: 2.657
+
+So choosing Inline for search, Direct for Sort

@@ -1,0 +1,21 @@
+﻿Build started 4/10/2014 11:27:23 PM.
+     1>Project "D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Asn2\Asn2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TCAssignment2.cpp
+         TCAssignment2.cpp
+     1>d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(244): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(327): warning C4018: '<' : signed/unsigned mismatch
+                 d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(306) : while compiling class template member function 'bool Graph<char>::isConnectedDFS(void)'
+                 d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(383) : see reference to function template instantiation 'bool Graph<char>::isConnectedDFS(void)' being compiled
+                 d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(380) : see reference to class template instantiation 'Graph<char>' being compiled
+     1>d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(363): warning C4018: '<' : signed/unsigned mismatch
+                 d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(342) : while compiling class template member function 'bool Graph<char>::isConnectedBFS(void)'
+                 d:\tetheta\visual studio projects\cptr143\asn2\asn2\tcassignment2.cpp(382) : see reference to function template instantiation 'bool Graph<char>::isConnectedBFS(void)' being compiled
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Debug\Asn2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Debug\Asn2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Debug\Asn2.lib" /MACHINE:X86 Debug\TCAssignment2.obj
+         Asn2.vcxproj -> D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Debug\Asn2.exe
+     1>Done Building Project "D:\Tetheta\Visual Studio Projects\CPTR143\Asn2\Asn2\Asn2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.63

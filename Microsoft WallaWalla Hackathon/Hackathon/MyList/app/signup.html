@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/StyleSheet.css">
+    <title>Hackathon Login</title>
+</head>
+<body class="accounts">
+    <div class="nav">
+        <div class="container">
+            <ul class="pull-left">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="searchListings.html">Search</a></li>
+            </ul>
+            <ul class="pull-right">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="post.html">Post</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Main Login Field -->
+    <div class="login-field">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <table>
+                            <tr>
+                                <td class="label">Email:</td>
+                                <td><input type="text" name="email" id="emailBox" /></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Password:</td>
+                                <td><input type="password" name="pword" id="pwordBox" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="button" value="Sign Up" id="signupButton" onclick="signupCustomer()" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <div id="signupResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Includes are shown below -->
+    <!--    <script type="text/javascript" src="scripts/JavaScript.js"></script> -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script>
+    var req;
+    function signupCustomer() {
+        var emailId = document.getElementById("emailId").value;
+        var passwdId = document.getElementById("passwdId").value;
+        if (passwdId == "")
+            passwdId = "NULL";
+
+        var uri = '/api/ValidateLogin/' + emailId + '/' + passwdId;
+        alert("URI: " + uri);
+        req = new XMLHttpRequest();
+        req.onreadystatechange = getListings;
+        req.open("GET", uri, true);
+        req.send();
+    }
+
+    function getListings() {
+        if (req.readyState == 4 && req.status == 200) {
+            var textOutput = req.responseText;
+            var jsonObj = JSON.parse(textOutput);
+            validateResult(jsonObj);
+        }
+    }
+
+    function validateResult(result) {
+        var loginResultObj = document.getElementById("loginResult");
+        alert("result:" + result);
+        if (result == 1) {
+            loginResult.innerHTML = "Login Successful";
+        }
+        else {
+            loginResult.innerHTML = "Login Failed";
+        }
+    }
+
+    </script>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

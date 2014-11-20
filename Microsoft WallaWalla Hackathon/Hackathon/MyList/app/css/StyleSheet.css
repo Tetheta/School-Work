@@ -1,0 +1,125 @@
+﻿td {
+    padding: 10px;
+}
+
+.site-sections {
+    /*background-color: #efefef;
+    border-bottom: 1px solid #dbdbdb;*/
+}
+
+    .site-sections h2 {
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: 'Shift', sans-serif;
+        width: 100px;
+        margin: 0 auto;
+    }
+
+    .site-sections p {
+        font-size: 15px;
+        margin-bottom: 13px;
+    }
+
+.nav a {
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 14px 10px;
+    text-transform: uppercase;
+}
+
+.nav li {
+    display: inline;
+}
+
+.jumbotron {
+    background-image: url("images/hackerWallpaper.jpg")
+}
+    .jumbotron .container {
+        position: relative;
+        top: 25px;
+    }
+
+    .jumbotron h1 {
+        color: #fff;
+        font-size: 48px;
+        font-family: 'Shift', sans-serif;
+        font-weight: bold;
+    }
+
+    .jumbotron p {
+        font-size: 20px;
+        color: #fff;
+    }
+
+.login-field {
+        font-size: 20px;
+        font-family: 'Shift', sans-serif;
+}
+
+.login-field .container{
+    position: relative;
+        top: 75px;
+}
+/*Main page*/
+
+.index{
+    background-image: url('images/websiteBackground.jpg');
+}
+
+.automotive {
+    background-image: url('images/automotiveBackground.jpg');
+}
+
+.electronics {
+    background-image: url('images/electronicsBackground.jpg');
+}
+
+.furniture {
+    background-image: url('images/furnitureBackground.jpg');
+}
+
+.fashion {
+    background-image: url('images/fashionWallpaper.jpg');
+}
+
+.accounts {
+    background-image: url('images/websiteBackground.jpg');
+}
+
+/*Search Page*/
+.searchListings h2{
+    color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: 'Shift', sans-serif;
+}
+
+.searchListings{
+    color: lightgray;
+    font-family: 'Shift', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+/*Category Pages*/
+.category {
+    color: #fff;
+    font-family: 'Shift', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.fashionCategory {
+    color: #fff;
+    font-family: 'Shift', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+/*Helper Scripts*/
+.center-div{
+    width: 100px;
+    margin: 0 auto;
+}

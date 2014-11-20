@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1394648163 source:p:\searchsort\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<stdio.h>
+	<ctime>
+

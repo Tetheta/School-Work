@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyListDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="fName" Type="varchar" MaxLength="50" />
+    <Property Name="lName" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="eulaAcceptance" Type="varchar" MaxLength="50" />
+    <Property Name="other1" Type="varchar" MaxLength="50" />
+    <Property Name="other2" Type="varchar" MaxLength="50" />
+    <Property Name="image" Type="image" />
+  </EntityType>
+  <EntityType Name="Posting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="customerStatus" Type="varchar" MaxLength="50" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="postedDate" Type="varchar" MaxLength="50" />
+    <Property Name="details" Type="varchar(max)" />
+    <Property Name="price" Type="money" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="contactInfo" Type="varchar" MaxLength="50" />
+    <Property Name="customerId" Type="int" Nullable="false" />
+    <Property Name="images" Type="int" />
+    <Property Name="other1" Type="varchar" MaxLength="50" />
+    <Property Name="other2" Type="varchar" MaxLength="50" />
+    <Property Name="image1" Type="image" />
+    <Property Name="image2" Type="image" />
+    <Property Name="image3" Type="image" />
+    <Property Name="image4" Type="image" />
+  </EntityType>
+  <Function Name="IndividualListing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ListingCategorySearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ListingOther1Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ListingTitleSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="LoginValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="varchar" Mode="In" />
+    <Parameter Name="param2" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="MyListings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="MyListDBModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Posting" EntityType="Self.Posting" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

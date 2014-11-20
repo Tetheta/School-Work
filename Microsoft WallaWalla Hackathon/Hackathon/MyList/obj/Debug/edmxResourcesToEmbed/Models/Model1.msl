@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyListDBModelStoreContainer" CdmEntityContainer="MyListDBEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="MyListDBModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="fName" ColumnName="fName" />
+          <ScalarProperty Name="lName" ColumnName="lName" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="eulaAcceptance" ColumnName="eulaAcceptance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Postings">
+      <EntityTypeMapping TypeName="MyListDBModel.Posting">
+        <MappingFragment StoreEntitySet="Posting">
+          <ScalarProperty Name="image4" ColumnName="image4" />
+          <ScalarProperty Name="image3" ColumnName="image3" />
+          <ScalarProperty Name="image2" ColumnName="image2" />
+          <ScalarProperty Name="image1" ColumnName="image1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="IndividualListing" FunctionName="MyListDBModel.Store.IndividualListing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MyListDBModel.IndividualListing_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ListingCategorySearch" FunctionName="MyListDBModel.Store.ListingCategorySearch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MyListDBModel.ListingCategorySearch_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ListingOther1Search" FunctionName="MyListDBModel.Store.ListingOther1Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MyListDBModel.ListingOther1Search_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ListingTitleSearch" FunctionName="MyListDBModel.Store.ListingTitleSearch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MyListDBModel.ListingTitleSearch_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contactInfo" ColumnName="contactInfo" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MyListings" FunctionName="MyListDBModel.Store.MyListings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MyListDBModel.MyListings_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerStatus" ColumnName="customerStatus" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="postedDate" ColumnName="postedDate" />
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="other1" ColumnName="other1" />
+          <ScalarProperty Name="other2" ColumnName="other2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LoginValidation" FunctionName="MyListDBModel.Store.LoginValidation" />
+  </EntityContainerMapping>
+</Mapping>
