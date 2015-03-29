@@ -1,0 +1,25 @@
+addi a z 2  //Load multiplier
+addi b z 3  //Load multiplicand
+sll b b 7   //Shift multiplicand by 7 for add/sub (14 bit result)
+addi d z 0  //Setup the pad bit
+addi e z 7  //Setup our counter (shifting 7 times)
+andi c a 1  //C is the LSB of running result |LOOP TO HERE|
+beq c d 13  //Jump to our shiftRight bit (it's 00 or 11)
+beq c z 12  //Jump to add B (it's 01)
+inv b b     //Subtract b (it's 10), so first invert b so it's negative
+add a a b   //Add the negative b to add
+inv b b     //switch b back so we don't screw things up
+beq z z 13  //jump to our shiftright bit now (always jumps)
+add a a b   //Add b 
+sra a a 1   //Shift right one bit, preserving sign, this is shiftRight
+addi e e -1 //Decrement our counter
+add d z z   //Clear d to zero |Here we need to move the old LSB to our pad bit
+add d c z   //Add c to that now, so we have the pad bit in d
+beq e z 17  //Stop if we're done, just loop in place
+beq z z 5   //Go back and loop
+
+//The BEQ command indexes the line at zero, so it's line - 1 from
+//Notepad++'s line numbers
+
+//VHDL Questions:
+//Does 0 - 0 give it the wrong answer somehow?

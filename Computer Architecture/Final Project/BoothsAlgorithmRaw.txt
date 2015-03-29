@@ -1,0 +1,19 @@
+addi a z 2
+addi b z 3
+sll b b 7
+addi d z 0
+addi e z 7
+andi c a 1
+beq c d 13
+beq c z 12
+inv b b
+add a a b
+inv b b
+beq z z 13
+add a a b
+sra a a 1
+addi e e -1
+add d z z
+add d c z
+beq e z 17
+beq z z 5

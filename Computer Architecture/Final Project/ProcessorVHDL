@@ -1,0 +1,458 @@
+-- Dane Purkeypile, Travis Crumley, Gregory Salsbery
+-- CPTR 350
+-- 3/15/2015
+-- Assembler Project - Processor 
+
+-- This VHDL file implements a simple processor that is made to 
+-- be compatible with the Cimple Booths Assembler.
+
+-- The processor is intended to be implemented on a 
+-- Xilinx Spartan3e FPGA on the WWU FPGA board.
+
+-- Program files can be uploaded to the FPGA in a .coe file
+-- by selecting "Regenerate Core" under "Design Utilities"
+
+-- The contents of every register can be viewed by pressing
+-- each respective button. See entity "OutputSelector"
+
+-- Refer to the manual for more information.
+
+------------------------------------------------------------------------------------
+
+-- Module Name: Register File
+-- Description: Implements 8, 16-bit registers for storing program data
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity RegisterFile is
+	port(clk, read_ctl, write_ctl, reset : IN std_logic;
+		  ReadAddress0, ReadAddress1, WriteAddress : IN std_logic_vector(2 downto 0);
+		  writeIn : IN std_logic_vector(15 downto 0);
+		  output0, output1  : OUT std_logic_vector(15 downto 0);
+		  registers : OUT std_logic_vector(127 downto 0));
+	
+end RegisterFile;
+
+architecture Behavioral of RegisterFile is
+	-- Initialize 
+	signal register0: std_logic_vector(15 downto 0) := (others => '0');
+	signal register1: std_logic_vector(15 downto 0) := (others => '0');
+	signal register2: std_logic_vector(15 downto 0) := (others => '0');
+	signal register3: std_logic_vector(15 downto 0) := (others => '0');
+	signal register4: std_logic_vector(15 downto 0) := (others => '0');
+	signal register5: std_logic_vector(15 downto 0) := (others => '0');
+	signal register6: std_logic_vector(15 downto 0) := (others => '0');
+	signal register7: std_logic_vector(15 downto 0) := (others => '0');
+	
+begin
+	
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			if(reset='0') then
+				if write_ctl = '1' then
+					-- Perform a register write
+					case WriteAddress is
+						when "000" =>
+							register0 <= writeIn; 
+						when "001" =>
+							register1 <= writeIn;
+						when "010" =>
+							register2 <= writeIn;
+						when "011" =>
+							register3 <= writeIn;
+						when "100" =>
+							register4 <= writeIn;
+						when "101" =>
+							register5 <= writeIn;
+						when "110" =>
+							register6 <= writeIn;
+						when others =>
+							register7 <= writeIn;
+					end case;
+				end if;
+				if read_ctl = '1' then
+					-- Read first source
+					case ReadAddress0 is
+						when "000" =>
+							output0 <= register0; 
+						when "001" =>
+							output0 <= register1;
+						when "010" =>
+							output0 <= register2;
+						when "011" =>
+							output0 <= register3;
+						when "100" =>
+							output0 <= register4;
+						when "101" =>
+							output0 <= register5;
+						when "110" =>
+							output0 <= register6;
+						when others =>
+							output0 <= register7;
+					end case;
+					
+					-- Read second source
+					case ReadAddress1 is
+						when "000" =>
+							output1 <= register0; 
+						when "001" =>
+							output1 <= register1;
+						when "010" =>
+							output1 <= register2;
+						when "011" =>
+							output1 <= register3;
+						when "100" =>
+							output1 <= register4;
+						when "101" =>
+							output1 <= register5;
+						when "110" =>
+							output1 <= register6;
+						when others =>
+							output1 <= register7;
+					end case;
+				end if;
+			else -- Reset, all registers go to 0
+				register0 <= (others => '0');
+				register1 <= (others => '0');
+				register2 <= (others => '0');
+				register3 <= (others => '0');
+				register4 <= (others => '0');
+				register5 <= (others => '0');
+				register6 <= (others => '0');
+				register7 <= (others => '0');
+			end if;
+		end if;
+	end process;
+	
+	-- this signal goes to the ouput selector, it is all of the registers in one logic vector
+	registers <= register7 & register6 & register5 & register4 & register3 & register2 & register1 & register0;
+	
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: Controller
+-- Description: Parses instructions into their respective parts and produces read/write 
+--					 control signals
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity Controller is
+	port(clk : IN std_logic;
+		  instruction : IN std_logic_vector(15 downto 0);
+		  read_ctl, write_ctl : OUT std_logic;
+		  opCode, ReadAddress0, ReadAddress1, WriteAddress : OUT std_logic_vector(2 downto 0);
+		  immediate : OUT std_logic_vector(6 downto 0));
+
+end Controller;
+
+architecture Behavioral of Controller is
+	signal signal_read_ctl : std_logic := '1';	-- reading happens first
+	signal signal_write_ctl : std_logic := '0';
+	signal signal_opCode : std_logic_vector(2 downto 0) := (others => '0'); 
+begin
+
+	-- Parse the instruction into its respective pieces
+	signal_opCode <= instruction(15 downto 13);
+	opCode <= instruction(15 downto 13);
+	WriteAddress <= instruction(12 downto 10);
+	immediate <= instruction(6 downto 0);
+	
+	process(signal_opCode) -- if branch then scoot the register read position over
+	begin						  -- conditional op code parsing
+		if(signal_opCode = "100") then
+			ReadAddress0 <= instruction(12 downto 10);
+			ReadAddress1 <= instruction(9 downto 7);
+		else
+			ReadAddress0 <= instruction(9 downto 7);
+			ReadAddress1 <= instruction(6 downto 4);
+		end if;
+	end process;
+	
+	process(clk) -- flip flop read and write signals, every clock cycle
+	begin
+		if rising_edge(clk) then
+			signal_read_ctl <= not signal_read_ctl;
+			signal_write_ctl <= not signal_write_ctl;
+		end if;
+	end process;
+	
+	process(clk,signal_opCode) -- if branch, do not activate write signal
+	begin								-- branch is only command that doesn't write back
+		if rising_edge(clk) then
+			read_ctl <= signal_read_ctl;
+			if(signal_opCode /= "100") then
+				write_ctl <= signal_write_ctl;
+			end if;
+		end if;
+	end process;
+	
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: ALU
+-- Description: Performs all logical and arithmetic operations
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity ALU is
+	port(clk : IN std_logic;
+		  opCode : IN std_logic_vector(2 downto 0);
+		  immediate : IN std_logic_vector(6 downto 0);
+		  input0, input1 : IN std_logic_vector(15 downto 0);
+		  result : OUT std_logic_vector(15 downto 0);
+		  branch : OUT std_logic);
+end ALU;
+
+architecture Behavioral of ALU is
+	constant zeros : std_logic_vector(15 downto 0) := (others => '0');
+	constant ones : std_logic_vector(15 downto 0) := (others => '1');
+	signal s_input0, s_input1 : signed(15 downto 0) := (others => '0');
+	signal s_immediate : signed(6 downto 0) := (others => '0');
+	signal s_result : signed(15 downto 0) := (others => '0');
+	signal signalResult : std_logic_vector(15 downto 0) := (others => '0');
+	signal immediate_extend : std_logic_vector(15 downto 0) := (others => '0');
+
+begin
+	s_input0 <= signed(input0); -- get a signed type of the first source
+	s_input1 <= signed(input1); -- get a signed type of the second source
+	s_immediate <= signed(immediate); -- get a signed type of the immediate
+	immediate_extend <= "000000000" & immediate; -- used only for andi
+																
+	process(opCode)
+		variable shiftAmt : integer range 0 to 15 := 0;
+	begin
+		shiftAmt := to_integer(unsigned(immediate));
+		case opCode is
+			when "000" => -- addi, add the first source and the immediate
+				s_result <= s_input0 + s_immediate;
+				signalResult <= std_logic_vector(s_result);
+			when "001" => -- andi, and the first source and the immediate
+				s_result <= (others => '0');
+				signalResult <= input0 and immediate_extend;
+			when "010" => -- shift left logical, shift the first source
+				s_result <= (others => '0');
+				signalResult <= std_logic_vector(shift_left(unsigned(input0),shiftAmt));
+			when "011" => -- shift right arithmetic (sign extension), first source
+				s_result <= (others => '0');
+				signalResult <= std_logic_vector(shift_right(signed(input0),shiftAmt));
+			when "100" => -- branch on equal, perform subtraction to determine if equal
+				if(input0 = "0000000000000000" and input1 = "0000000000000000") then
+					s_result <= (others => '0');
+					signalResult <= (others => '0');
+				else
+					s_result <= s_input0 - s_input1;
+					signalResult <= std_logic_vector(s_result);
+				end if;
+			when "101" => -- add, add the first and second source
+				s_result <= s_input0 + s_input1;
+				signalResult <= std_logic_vector(s_result);
+			when "110" => -- invert, invert the first source
+				s_result <= (others => '0');
+				signalResult <= (input0 xor ones) + 1;
+			when others => -- undefined opcodes, make result 0
+				s_result <= (others => '0');
+				signalResult <= (others => '0');
+		end case;
+	end process;
+	
+	process(opCode,signalResult) -- branch assert if branch op code and result is 0
+	begin
+		if(opCode = "100" and signalResult = "0000000000000000") then
+			branch <= '1';
+		else
+			branch <= '0';
+		end if;
+	end process;
+		
+	result <= signalResult; -- assign the output signal
+	
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: Next Instruction Unit
+-- Description: Implements the necessary logic for determining the next 
+--              instruction address
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity nextInstructionUnit is
+	port(clk, branch, reset : IN std_logic;
+		  immediate : IN std_logic_vector(6 downto 0);
+		  PC : OUT std_logic_vector(6 downto 0));
+	
+end nextInstructionUnit;
+
+architecture Behavioral of nextInstructionUnit is
+	signal signalPC : std_logic_vector(6 downto 0) := (others=>'0');
+begin
+	
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			if(reset='0') then
+				if(branch='1') then
+					signalPC <= immediate; -- branch to immediate value
+				else
+					signalPC <= signalPC + 1; -- advance to next instruction
+				end if;
+			else
+				signalPC <= (others=>'0'); -- Reset, go back to line 0
+			end if;
+		end if;
+	end process;
+	
+	PC <= signalPC; -- assign the output signal
+
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: Clock Divider
+-- Description: Divides the main 50 MHz clock to a slower speed
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity clockDividerMaster is
+	port(clk 	: IN std_logic;
+		  d_clk	: OUT std_logic);
+	
+end clockDividerMaster;
+
+architecture Behavioral of clockDividerMaster is
+
+constant input_clk_freq : integer := 50_000_000;
+constant desired_freq   : integer := 50; -- Change number to select frequency
+-- Derived Constants
+constant count_top : integer := input_clk_freq/(2*desired_freq)-1;
+signal count : integer range 0 to count_top := 0;
+signal ff_clk : std_logic;
+
+begin
+process(clk) begin
+	if rising_edge(clk) then
+		if count = count_top then
+			count <= 0;
+			ff_clk <= not ff_clk;
+		else
+			count <= count+1;
+		end if;
+	end if;
+end process;
+
+d_clk <= ff_clk;
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: Clock Divider Half
+-- Description: Divides the main 50 MHz clock to half the speed of the 
+--              previous clock divider
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity clockDividerMasterHalf is
+	port(clk 	: IN std_logic;
+		  d_clk	: OUT std_logic);
+	
+end clockDividerMasterHalf;
+
+architecture Behavioral of clockDividerMasterHalf is
+
+constant input_clk_freq : integer := 50_000_000;
+constant desired_freq   : integer := 25; -- Change number to select frequency
+-- Derived Constants
+constant count_top : integer := input_clk_freq/(2*desired_freq)-1;
+signal count : integer range 0 to count_top := 0;
+signal ff_clk : std_logic;
+
+begin
+process(clk) begin
+	if rising_edge(clk) then
+		if count = count_top then
+			count <= 0;
+			ff_clk <= not ff_clk;
+		else
+			count <= count+1;
+		end if;
+	end if;
+end process;
+
+d_clk <= ff_clk;
+end Behavioral;
+
+-------------------------------------------------------------------------------------
+
+-- Module Name: Output Selector
+-- Description: Provides a method for viewing all of the register data on 16 leds
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity outputSelector is
+	port(registers 	: IN std_logic_vector(127 downto 0);
+		  PC        	: IN std_logic_vector(6 downto 0);
+		  buttons		: IN std_logic_vector(7 downto 0);
+		  lights			: OUT std_logic_vector(15 downto 0));
+	
+end outputSelector;
+
+architecture Behavioral of outputSelector is
+	signal register0 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register1 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register2 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register3 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register4 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register5 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register6 : std_logic_vector(15 downto 0) := (others=>'0');
+	signal register7 : std_logic_vector(15 downto 0) := (others=>'0');
+begin
+
+	register0 <= registers(15 downto 0);
+	register1 <= registers(31 downto 16);
+	register2 <= registers(47 downto 32);
+	register3 <= registers(63 downto 48);
+	register4 <= registers(79 downto 64);
+	register5 <= registers(95 downto 80);
+	register6 <= registers(111 downto 96);
+	register7 <= registers(127 downto 112);
+	
+	process(buttons)
+	begin
+		case buttons is
+			when "00000000" => 
+				lights <= register1; -- result register
+			when "00000001" => 
+				lights <= register0;
+			when "00000010" => 
+				lights <= register2;
+			when "00000100" => 
+				lights <= register3;
+			when "00001000" => 
+				lights <= register4;
+			when "00010000" => 
+				lights <= register5;
+			when "00100000" => 
+				lights <= register6;
+			when "01000000" => 
+				lights <= register7;
+			when "10000000" => 
+				lights <= "000000000" & PC;
+			when others => 
+				lights <= register1; -- default result register
+		end case;
+	end process;
+end Behavioral;
